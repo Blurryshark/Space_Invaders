@@ -1,0 +1,4 @@
+repository "Space_Invaders@el_Mago_Gordo@cloud"
+  path "/"
+    br "/main"
+    co "/main"
