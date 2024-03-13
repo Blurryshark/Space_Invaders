@@ -97,13 +97,14 @@ public class GridScript : MonoBehaviour
             {
                 Vector3 SpawnPos = new Vector3(currentPos.x + (k * spacingFactorX), currentPos.y + (i * spacingFactorY), currentPos.z);
                 GameObject obj = Instantiate(myPrefab, SpawnPos, Quaternion.identity, t);
-                colorPicker(i, obj);
+                //colorPicker(i, obj);
                 obj.GameObject().name = i + "_alien";
                 enemyCount++;
                 SpawnPos = new Vector3(currentPos.x + (k * spacingFactorX * -1), currentPos.y + (i *spacingFactorY), currentPos.z);
                 obj = Instantiate(myPrefab, SpawnPos, Quaternion.identity, t);
-                colorPicker(i, obj);
+                //colorPicker(i, obj);
                 obj.GameObject().name = i + "_alien";
+                
                 enemyCount++;
             }
         }
@@ -112,7 +113,7 @@ public class GridScript : MonoBehaviour
         Instantiate(barricade, new Vector3(2.75f, -2,0), Quaternion.identity);
         Instantiate(barricade, new Vector3(-1.75F, -2, 0), Quaternion.identity);
         Instantiate(barricade, new Vector3(-6.25f, -2, 0), Quaternion.identity);
-        InvokeRepeating("moveGrid", .01f, 0.75f);
+        InvokeRepeating("moveGrid", 1f, 0.75f);
     }
 
     private void Update()
@@ -138,6 +139,12 @@ public class GridScript : MonoBehaviour
                 obj.GetComponent<Rigidbody>().AddForce(missileForce, ForceMode.Impulse);
                 missileIs = true;
             }
+        }
+
+        if (Input.GetKey(KeyCode.KeypadEnter))
+        {
+            PlayerPrefs.DeleteAll();
+            Debug.Log("RESET");
         }
 
         String newScore = scoreFormat(playerScore);
@@ -183,19 +190,19 @@ public class GridScript : MonoBehaviour
         }
     }
 
-    public void colorPicker(int i, GameObject obj)
-    {
-        if (i == 0)
-        { 
-            obj.GetComponent<Renderer>().material = blueMat;
-        } else if (i == 1) {
-            obj.GetComponent<Renderer>().material = greenMat;
-        } else if (i == 2) {
-            obj.GetComponent<Renderer>().material = redMat;
-        } else if (i == 3) {
-            obj.GetComponent<Renderer>().material = pinkMat;
-        }
-    }
+    // public void colorPicker(int i, GameObject obj)
+    // {
+    //     if (i == 0)
+    //     { 
+    //         obj.GetComponent<Renderer>().material = blueMat;
+    //     } else if (i == 1) {
+    //         obj.GetComponent<Renderer>().material = greenMat;
+    //     } else if (i == 2) {
+    //         obj.GetComponent<Renderer>().material = redMat;
+    //     } else if (i == 3) {
+    //         obj.GetComponent<Renderer>().material = pinkMat;
+    //     }
+    // }
 
     public String scoreFormat(int score)
     {

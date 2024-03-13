@@ -2,6 +2,7 @@ using System;
 
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 
 public class AlienScript : MonoBehaviour
@@ -13,7 +14,21 @@ public class AlienScript : MonoBehaviour
 
     private void Start()
     {
+        if (name.Contains("0"))
+        {
+            GetComponent<Animator>().SetInteger("Row", 0);
+        } else if (name.Contains("1"))
+        {
+            GetComponent<Animator>().SetInteger("Row", 1);
+        } else if (name.Contains("2"))
+        {            
+            GetComponent<Animator>().SetInteger("Row", 2);
+        } else if (name.Contains("3"))
+        {
+            GetComponent<Animator>().SetInteger("Row", 3);
+        }
         InvokeRepeating("fire", 0.1f, 3f);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,7 +36,8 @@ public class AlienScript : MonoBehaviour
         if (!other.name.Contains("Alien"))
         {
             Destroy(other.gameObject);
-            Destroy(gameObject);
+            this.GameObject().GetComponent<Animator>().SetTrigger("hit");
+            Destroy(gameObject.GetComponent<Collider>());
             Debug.Log(other.name + " fired!");
             onAlienDied.Invoke(this.gameObject.name);
         }
@@ -33,6 +49,7 @@ public class AlienScript : MonoBehaviour
         int rand = Random.Range(0, 50);
         if (rand == 1)
         {
+            GetComponent<Animator>().SetTrigger("shoot");
             Vector3 defenderPos = gameObject.GetComponent<Transform>().position;
             Vector3 spawnPos = new Vector3(defenderPos.x, defenderPos.y - 0.25f, defenderPos.z + 10f);
             GameObject obj = Instantiate(alienMissile, spawnPos, Quaternion.identity);
