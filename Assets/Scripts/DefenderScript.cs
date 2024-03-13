@@ -9,6 +9,7 @@ public class DefenderScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(other.gameObject);
+        GetComponent<AudioSource>().Play();
         GetComponent<Animator>().SetTrigger("explodeTrigger");
         StartCoroutine("credits");
     }

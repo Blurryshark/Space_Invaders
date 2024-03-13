@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class AlienScript : MonoBehaviour
 {
+    
     public delegate void alienDied(String name);
     public static event alienDied onAlienDied;
     public GameObject alienMissile;
@@ -50,6 +51,7 @@ public class AlienScript : MonoBehaviour
         if (rand == 1)
         {
             GetComponent<Animator>().SetTrigger("shoot");
+            GetComponent<AudioSource>().Play();
             Vector3 defenderPos = gameObject.GetComponent<Transform>().position;
             Vector3 spawnPos = new Vector3(defenderPos.x, defenderPos.y - 0.25f, defenderPos.z + 10f);
             GameObject obj = Instantiate(alienMissile, spawnPos, Quaternion.identity);

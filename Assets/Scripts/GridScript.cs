@@ -10,6 +10,8 @@ using UnityEngine;
 
 public class GridScript : MonoBehaviour
 {
+    public AudioSource alienDeath;
+    public AudioSource defenderGun;
     public GameObject myPrefab;
     public GameObject defender;
     public GameObject barricade;
@@ -61,6 +63,7 @@ public class GridScript : MonoBehaviour
         {
             missileIs = false;
             enemyCount--;
+            alienDeath.Play();
             if (enemyCount == 50)
             {
                 CancelInvoke();
@@ -132,6 +135,7 @@ public class GridScript : MonoBehaviour
         {
             if (!missileIs)
             {
+                defenderGun.Play();
                 Vector3 defenderPos = defender.GetComponent<Transform>().position;
                 Vector3 spawnPos = new Vector3(defenderPos.x, defenderPos.y + 0.25f, defenderPos.z - 10f);
                 GameObject obj = Instantiate(missile, spawnPos, Quaternion.identity);
